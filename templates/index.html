@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Afvinkopdracht 3 | Raadplegen studenten database</title>
+</head>
+<body>
+    <h1> Visualiseer berichten van studenten </h1>
+    <!-- Als combinatie van gebruikersnaam en wachtwoord niet juist is,
+          toon een berich -->
+    {% if bericht != None %}
+        <p> {{ bericht }} </p>
+    {% endif %}
+
+    <form method="post">
+        <label for="gebruikersnaam"> Gebruiker: </label>
+        <input type="text" id="gebruikersnaam" name="gebruikersnaam"
+               value="{{ request.form["gebruikersnaam"] }}" required><br>
+        <label for="wachtwoord"> Wachtwoord: </label>
+        <input type="password" id="wachtwoord" name="wachtwoord" required>
+        <hr>
+        <label for="zoekwoord"> Zoekwoord: </label>
+        <input type="text" id="zoekwoord" name="zoekwoord"
+        value="{{ request.form["zoekwoord"] }}">
+        <input type="submit" id="verzend" name="verzend">
+    </form>
+    <hr>
+    <!-- Haal berichten van studenten op -->
+    {% for rij in cursor %}
+        <p> <strong> {{ rij[0] }} </strong> {{ rij[1] }} {{ rij[2] }}<br>
+        {{ rij[3] }}</p>
+    {% endfor %}
+</body>
+</html>
